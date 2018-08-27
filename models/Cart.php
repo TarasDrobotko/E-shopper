@@ -17,7 +17,7 @@ class Cart extends ActiveRecord {
     }
     
     /**
-     * 
+     * Add to cart product
      * @param object $product
      * @param integer $qty
      */
@@ -42,7 +42,7 @@ class Cart extends ActiveRecord {
     }
     
     /**
-     * 
+     * recalc product after delete item
      * @param integer $id
      */
     public function recalc($id) {
