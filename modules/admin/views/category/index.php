@@ -29,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
                  return $data->category->name ? $data->category->name : 'Самостоятельная категория';
                 },
             ],
-            //'parent_id',
             'name',
             'keywords',
             'description',

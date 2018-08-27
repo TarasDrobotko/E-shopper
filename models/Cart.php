@@ -2,6 +2,7 @@
 
 namespace app\models;
 use yii\db\ActiveRecord;
+
 /**
  * @author Admin
  */
@@ -14,6 +15,12 @@ class Cart extends ActiveRecord {
             ]
         ];
     }
+    
+    /**
+     * 
+     * @param object $product
+     * @param integer $qty
+     */
     
     public function addToCart($product, $qty = 1) {
         $mainImg = $product->getImage();
@@ -34,6 +41,10 @@ class Cart extends ActiveRecord {
            
     }
     
+    /**
+     * 
+     * @param integer $id
+     */
     public function recalc($id) {
         if(!isset($_SESSION['cart'][$id])) return false;
     $qtyMinus = $_SESSION['cart'][$id]['qty'];

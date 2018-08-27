@@ -23,7 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            //'category_id',
             [
               'attribute' => 'category_id',
               'value' => function($data){
@@ -31,7 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
               },
             ],
             'name',
-            //'content:ntext',
             'price',
             [
               'attribute' => 'hit',
@@ -57,12 +55,6 @@ $this->params['breadcrumbs'][] = $this->title;
               },
               'format' => 'html',
             ],
-            //'keywords',
-            //'description',
-            //'img',
-            //'hit',
-            //'new',
-            //'sale',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

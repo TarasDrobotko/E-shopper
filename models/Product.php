@@ -3,7 +3,7 @@ namespace app\models;
 use yii\db\ActiveRecord;
 
 /**
- * @author Admin
+ * This is the model for table "product"
  */
 class Product extends ActiveRecord{
     
@@ -20,6 +20,10 @@ class Product extends ActiveRecord{
         return 'product';
     }
     
+    /**
+     * 
+     * @return ActiveQuery
+     */
     public function getCategory() {
       return  $this->hasOne(Category::className(), ['id' => 'category_id']);
     }

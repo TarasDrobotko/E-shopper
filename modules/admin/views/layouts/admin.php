@@ -21,13 +21,13 @@ ItAppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <?= Html::csrfMetaTags() ?>
+<?= Html::csrfMetaTags() ?>
     <title>Админка | <?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?> 
+<?php $this->head() ?> 
   </head><!--/head-->
 
 <body>
-    <?php $this->beginBody() ?>
+<?php $this->beginBody() ?>
 	<header id="header"><!--header-->
 		<div class="header_top"><!--header_top-->
 			<div class="container">
@@ -57,8 +57,8 @@ ItAppAsset::register($this);
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-                                                    <a href="<?= \yii\helpers\Url::home();?>">
-                                    <?= Html::img('@web/images/home/logo.png', ['alt' => 'E-SHOPPER']); ?>
+                                                    <a href="<?= \yii\helpers\Url::home(); ?>">
+<?= Html::img('@web/images/home/logo.png', ['alt' => 'E-SHOPPER']); ?>
                                                     </a>                          
 						</div>
 						
@@ -66,10 +66,10 @@ ItAppAsset::register($this);
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-						<?php if(!Yii::$app->user->isGuest): ?>
-                                                            <li><a href="<?= \yii\helpers\Url::to('/site/logout'); ?>"><i class="fa fa-user"></i>
-                                                                    <?= Yii::$app->user->identity['username'] ?> (Выход)</a></li>
-                                   <?php endif; ?>
+<?php if (!Yii::$app->user->isGuest): ?>
+                                                                <li><a href="<?= \yii\helpers\Url::to('/site/logout'); ?>"><i class="fa fa-user"></i>
+    <?= Yii::$app->user->identity['username'] ?> (Выход)</a></li>
+<?php endif; ?>
 					
 							</ul>
 						</div>
@@ -95,13 +95,13 @@ ItAppAsset::register($this);
                                                             <li><a href="<?= \yii\helpers\Url::to(['/admin']) ?>" class="active">Home</a></li>
 								<li class="dropdown"><a href="#">Категории<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="<?= \yii\helpers\Url::to(['category/index'])?>">Список категорий</a></li>
-					<li><a href="<?= \yii\helpers\Url::to(['category/create'])?>">Добавить категорию</a></li> 						
+                                        <li><a href="<?= \yii\helpers\Url::to(['category/index']) ?>">Список категорий</a></li>
+					<li><a href="<?= \yii\helpers\Url::to(['category/create']) ?>">Добавить категорию</a></li> 						
                                     </ul>
                                 </li> 
 								<li class="dropdown"><a href="#">Товары<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="<?= \yii\helpers\Url::to(['product/index'])?>">Список товаров</a></li>
+                                        <li><a href="<?= \yii\helpers\Url::to(['product/index']) ?>">Список товаров</a></li>
                                     </ul>
                                 </li> 
 							</ul>
@@ -121,15 +121,15 @@ ItAppAsset::register($this);
 	</header><!--/header-->
 	
         <div class="container">
-    <?php if( Yii::$app->session->hasFlash('success')): ?>
-    <div class="alert alert-success alert-dismissable" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true" >&times;</span>
-        </button>  
-      <?php  echo Yii::$app->session->getFlash('success'); ?>
-    </div>
-    <?php endif; ?>
-	<?= $content; ?>
+<?php if (Yii::$app->session->hasFlash('success')): ?>
+        <div class="alert alert-success alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true" >&times;</span>
+            </button>  
+    <?php echo Yii::$app->session->getFlash('success'); ?>
+        </div>
+<?php endif; ?>
+<?= $content; ?>
         </div>
 	
 	<footer id="footer"><!--Footer-->
@@ -196,7 +196,7 @@ ItAppAsset::register($this);
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="row">
-					<p class="pull-left">Copyright © <?= date('Y')?> E-SHOPPER Inc. Все права защищены.</p>
+					<p class="pull-left">Copyright © <?= date('Y') ?> E-SHOPPER Inc. Все права защищены.</p>
 					<p class="pull-right">Дизайн <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p>
 				</div>
 			</div>

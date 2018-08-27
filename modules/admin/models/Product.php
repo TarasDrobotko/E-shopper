@@ -80,6 +80,10 @@ class Product extends \yii\db\ActiveRecord
         ];
     }
     
+    /**
+     * Upload image for product
+     * @return boolean
+     */
   public function upload() {
       if($this->validate()) {
           $patch = 'upload/store/' . $this->image->baseName . '.' . $this->image->extension;
@@ -92,6 +96,10 @@ class Product extends \yii\db\ActiveRecord
       }
   }  
   
+  /**
+   * Upload images for gallery under image of product
+   * @return boolean
+   */
    public function uploadGallery() {
       if($this->validate()) {
           foreach($this->gallery as $file) {

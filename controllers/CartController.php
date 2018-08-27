@@ -1,96 +1,91 @@
 <?php
 
 namespace app\controllers;
+
 use app\models\Product;
 use app\models\Cart;
 use app\models\Order;
 use app\models\OrderItems;
 use Yii;
-/**
- * @author Admin
- */
+
 class CartController extends AppController {
+    
     public function actionAdd() {
         $id = Yii::$app->request->get('id');
-        $qty = (int)Yii::$app->request->get('qty');
+        $qty = (int) Yii::$app->request->get('qty');
         $qty = !$qty ? 1 : $qty;
         $product = Product::findOne($id);
-        if(empty($product)) return false;
+        if (empty($product))
+            return false;
         $session = Yii::$app->session;
         $session->open();
         $cart = new Cart();
         $cart->addToCart($product, $qty);
-//        debug($session['cart']);
-//        debug($session['cart.qty']);
-//        debug($session['cart.sum']);
-        if(!Yii::$app->request->isAjax) {
+        if (!Yii::$app->request->isAjax) {
             return $this->redirect(Yii::$app->request->referrer);
         }
         $this->layout = false;
         return $this->render('cart-modal', compact('session'));
     }
-    
+
     public function actionClear() {
         $session = Yii::$app->session;
         $session->open();
         $session->remove('cart');
         $session->remove('cart.qty');
-        $session->remove('cart.sum');  
+        $session->remove('cart.sum');
         $this->layout = false;
         return $this->render('cart-modal', compact('session'));
     }
-    
+
     public function actionDelItem() {
-         $id = Yii::$app->request->get('id');
-         $session = Yii::$app->session;
-         $session->open();
-         $cart = new Cart();
-         $cart->recalc($id);
-         $this->layout = false;
-          return $this->render('cart-modal', compact('session'));
-             
+        $id = Yii::$app->request->get('id');
+        $session = Yii::$app->session;
+        $session->open();
+        $cart = new Cart();
+        $cart->recalc($id);
+        $this->layout = false;
+        return $this->render('cart-modal', compact('session'));
     }
-    
+
     public function actionShow() {
         $session = Yii::$app->session;
-         $session->open();
-         $this->layout = false;
-          return $this->render('cart-modal', compact('session'));
-             
+        $session->open();
+        $this->layout = false;
+        return $this->render('cart-modal', compact('session'));
     }
-    
+
     public function actionView() {
-         $session = Yii::$app->session;
-         $session->open();
-         $this->setMeta('Корзина');
-         $order = new Order();
-         if($order->load(Yii::$app->request->post())) {
-             $order->qty = $session['cart.qty'];
-             $order->sum = $session['cart.sum'];
-             if($order->save()) {
-                 $this->saveOrderItems($session['cart'], $order->id);
-                 Yii::$app->session->setFlash('success', 'Ваш заказ принят. '
-                         . 'Менеджер вскоре свяжется с Вами.');
-                 Yii::$app->mailer->compose('order', ['session' => $session])
-                         ->setFrom(['drobotkot@gmail.com' => 'yii2.loc'])
+        $session = Yii::$app->session;
+        $session->open();
+        $this->setMeta('Корзина');
+        $order = new Order();
+        if ($order->load(Yii::$app->request->post())) {
+            $order->qty = $session['cart.qty'];
+            $order->sum = $session['cart.sum'];
+            if ($order->save()) {
+                $this->saveOrderItems($session['cart'], $order->id);
+                Yii::$app->session->setFlash('success', 'Ваш заказ принят. '
+                        . 'Менеджер вскоре свяжется с Вами.');
+                Yii::$app->mailer->compose('order', ['session' => $session])
+                        ->setFrom(['drobotkot@gmail.com' => 'yii2.loc'])
                         ->setTo($order->email)
                         ->setSubject('Заказ')
                         ->send();
                 $session->remove('cart');
-                 $session->remove('cart.qty'); 
-                 $session->remove('cart.sum');
-                  return $this->refresh();
-             }else{
-                    Yii::$app->session->setFlash('error', 'Ошибка оформления заказа.');
-             }
-         }
-         
-         return($this->render('view', compact('session', 'order')));
-        
-    }  
-    
+                $session->remove('cart.qty');
+                $session->remove('cart.sum');
+                return $this->refresh();
+            } else {
+                Yii::$app->session->setFlash('error', 'Ошибка оформления заказа.');
+            }
+        }
+
+        return($this->render('view', compact('session', 'order')));
+    }
+
     protected function saveOrderItems($items, $order_id) {
-        foreach($items as $id => $item) {
+        foreach ($items as $id => $item) {
             $order_items = new OrderItems();
             $order_items->order_id = $order_id;
             $order_items->product_id = $id;
@@ -101,4 +96,5 @@ class CartController extends AppController {
             $order_items->save();
         }
     }
+
 }
