@@ -53,7 +53,7 @@ class Product extends \yii\db\ActiveRecord
             [['category_id'], 'integer'],
             [['content', 'hit', 'new', 'sale'], 'string'],
             [['price'], 'number'],
-            [['name', 'keywords', 'description', 'img'], 'string', 'max' => 255],
+            [['name', 'keywords', 'description'], 'string', 'max' => 255],
             [['image'], 'file', 'extensions' => 'png, jpg'],
             [['gallery'], 'file', 'extensions' => 'png, jpg', 'maxFiles' => 4],
         ];
@@ -87,6 +87,7 @@ class Product extends \yii\db\ActiveRecord
   public function upload() {
       if($this->validate()) {
           $patch = 'upload/store/' . $this->image->baseName . '.' . $this->image->extension;
+
           $this->image->saveAs($patch);
           $this->attachImage($patch, true);
           @unlink($patch);
@@ -105,8 +106,9 @@ class Product extends \yii\db\ActiveRecord
           foreach($this->gallery as $file) {
           $patch = 'upload/store/' . $file->baseName . '.' . $file->extension;
           $file->saveAs($patch);
-          $this->attachImage($patch);
-          @unlink($patch);
+         
+		 $this->attachImage($patch); 
+         @unlink($patch);
           }
           return true;
       } else {

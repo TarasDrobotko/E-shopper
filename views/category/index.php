@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 ?>
@@ -92,13 +93,22 @@ use yii\helpers\Html;
                     <div class="features_items"><!--features_items-->
                         <h2 class="title text-center">Популярные товары</h2>
                         <?php foreach ($hits as $hit): ?>
+						
                             <?php $mainImg = $hit->getImage(); ?>
                             <div class="col-sm-4">
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <?= Html::img($mainImg->getUrl(), ['alt' => $hit->name]) ?>
-
+										<?php 
+							$var1 = $mainImg->getPathToOrigin();
+							$var2 = Url::to('@webroot/upload/store/no-image.png');
+							 if(strcasecmp($var1, $var2) != 0)
+							{echo Html::img($mainImg->getUrl(), ['alt' => $hit->name]); 
+							}else{
+								echo Html::img("@web/web/upload/store/no-image.png", ['alt' => 'Изображение отсутствует', 
+								]); 
+							} ?> 
+					 
                                             <h2>$<?= $hit->price ?></h2>
                                             <p><a href="<?= \yii\helpers\Url::to(['product/view', 'id' => $hit->id]) ?>">
                                                     <?= $hit->name; ?></a></p>
@@ -141,7 +151,14 @@ use yii\helpers\Html;
                                         <div class="product-image-wrapper">
                                             <div class="single-products">
                                                 <div class="productinfo text-center">
-                                                            <?= Html::img($image->getUrl(), ['alt' => $hit->name]) ?>
+                                                         <?php  
+							$var1 = $image->getPathToOrigin();
+							$var2 = Url::to('@webroot/upload/store/no-image.png');
+							 if(strcasecmp($var1, $var2) != 0)
+							{echo Html::img($image->getUrl(), ['alt' => $hit->name]); 
+							}else{
+								echo Html::img("@web/web/upload/store/no-image.png", ['alt' => 'Изображение отсутствует', 
+							]); } ?>
                                                     <h2>$<?= $hit->price; ?></h2>
                                                     <p><a href="<?= \yii\helpers\Url::to(['product/view', 'id' => $hit->id]); ?>">
     <?= $hit->name; ?></a></p>

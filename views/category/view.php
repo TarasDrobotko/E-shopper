@@ -3,6 +3,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
+use yii\helpers\Url;
 
 ?>
 <section id="advertisement">
@@ -40,7 +41,13 @@ use yii\widgets\LinkPager;
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-        <?= Html::img($mainImg->getUrl(), ['alt' => $product->name]) ?>
+        <?php $var1 = $mainImg->getPathToOrigin();
+			  $var2 = Url::to('@webroot/upload/store/no-image.png');
+							 if(strcasecmp($var1, $var2) != 0){
+								 echo Html::img($mainImg->getUrl(), ['alt' => $hit->name]); 
+							}else{
+								echo Html::img("@web/web/upload/store/no-image.png", ['alt' => 'Изображение отсутствует', 
+							]); } ?>
                                             <h2>$<?= $product->price ?></h2>
                                             <p><a href="<?= \yii\helpers\Url::to(['product/view', 'id' => $product->id]) ?>">
         <?= $product->name ?></a></p>

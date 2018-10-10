@@ -96,15 +96,9 @@ $model->removeImages();
 
              unset($model->image);
              $model->gallery = \yii\web\UploadedFile::getInstances($model, 'gallery');
-             $model->uploadGallery();
-//            $i = 0;
-//              foreach ($model->getImages() as $image){
-//		if($i< 1) {
-//			$model->removeImage($image);
-//                        $i++;
-//		}
-//              }
-            //debug($model->image);die;
+		
+              $model->uploadGallery();
+			 
             Yii::$app->session->setFlash('success', "Товар {$model->name} обновлен!");
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

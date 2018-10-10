@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 ?>
@@ -23,12 +24,30 @@ use yii\helpers\Html;
             <?php
             $mainImg = $product->getImage();
             $gallery = $product->getImages();
+			
             ?>		
             <div class="col-sm-9 padding-right">
                 <div class="product-details"><!--product-details-->
                     <div class="col-sm-5">
                         <div class="view-product">
-                            <?= Html::img($mainImg->getUrl(), ['alt' => $product->name]) ?>
+						<?php if ($product->sale): ?>
+                                <?= Html::img("@web/images/home/sale.png", ['alt' => 'Распродажа', 'class' => 'salearrival']);
+                                ?>   
+                            <?php endif; ?>
+                            <?php if ($product->new): ?>
+                                <?= Html::img("@web/images/home/new.png", ['alt' => 'Новинка', 'class' => 'newarrival']);
+                                ?>   
+<?php endif; ?> 
+						
+                            <?php 
+							$var1 = $mainImg->getPathToOrigin();
+							$var2 = Url::to('@webroot/upload/store/no-image.png');
+							 if(strcasecmp($var1, $var2) != 0)
+							{echo Html::img($mainImg->getUrl(), ['alt' => $product->name]); 
+							}else{
+								echo Html::img("@web/web/upload/store/no-image.png", ['alt' => 'Изображение отсутствует', 
+								]); 
+							} ?> 
                             <h3>ZOOM</h3>
                         </div>
                         <div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -37,7 +56,11 @@ use yii\helpers\Html;
                             <div class="carousel-inner">
                                 <?php $count = count($gallery);
                                 $i = 0;
-                                foreach ($gallery as $img): ?>
+                                foreach ($gallery as $img): 
+								if($img->isMain == 1) {
+									//Ничего не делаем;
+								}else {
+								?>
 
                                         <?php if ($i % 3 == 0): ?>
                                         <div class="item <?php if ($i == 0) echo 'active'; ?>">
@@ -47,7 +70,10 @@ use yii\helpers\Html;
                                     <?php $i++;
                                     if ($i % 3 == 0 || $i == $count): ?>     
                                         </div>
-    <?php endif; ?>
+								<?php endif; 
+							//end else	
+								} ?>
+							
 <?php endforeach; ?>
                             </div>
 
@@ -63,17 +89,9 @@ use yii\helpers\Html;
                     </div>
                     <div class="col-sm-7">
                         <div class="product-information"><!--/product-information-->
-
-                            <?php if ($product->sale): ?>
-                                <?= Html::img("@web/images/home/sale.png", ['alt' => 'Распродажа', 'class' => 'newarrival']);
-                                ?>   
-                            <?php endif; ?>
-                            <?php if ($product->new): ?>
-                                <?= Html::img("@web/images/home/new.png", ['alt' => 'Новинка', 'class' => 'newarrival']);
-                                ?>   
-<?php endif; ?> 
+                          
                             <h2><?= $product->name; ?></h2>
-                            <p>Web ID: 1089772</p>
+                            
                             <img src="/images/product-details/rating.png" alt="" />
                             <span>
                                 <!--<span>US $<?= $product->price; ?></span>-->
