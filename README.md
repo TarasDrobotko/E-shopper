@@ -2,7 +2,9 @@
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
     </a>
-    <h1 align="center">Yii 2 Basic Project Template</h1>
+    <h1 align="center">Yii 2 Basic Project</h1>
+    <strong> You need: 1) download yii2 basic template and insert folder named vendor in E-shopper project;<br> 
+                       2)open console in root folder of E-shopper and perfom command "Composer update".  </strong>
     <br>
 </p>
 
