@@ -6,6 +6,7 @@
     <strong> You need: 1) download yii2 basic template and insert folder named vendor in E-shopper project;<br> 
                        2)open console in root folder of E-shopper and perfom command "Composer update".  </strong>
     <br>
+    Parol for admin panel: 123, login - admin.
 </p>
 
 Yii 2 Basic Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
